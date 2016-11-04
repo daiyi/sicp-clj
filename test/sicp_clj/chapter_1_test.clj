@@ -19,4 +19,9 @@
     (testing "sqrt"
       (is (< (abs (- (sq (sqrt 2))
                      2))
+             0.00001)))
+    (testing "1.7 - sqrt with precision improvements"
+      ;; works better with small numbers
+      (is (< (abs (- (sq (sqrt 0.00000345))
+                     0.00000345))
              0.00001)))))

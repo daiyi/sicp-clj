@@ -40,12 +40,32 @@
      (abs (- (sq guess)
              x))))
 
+(defn good-enough-incremental-precision?
+  [guess x]
+  (let [improved-guess (improve-guess guess x)]
+    (> 0.00001
+       (/ (abs (- improved-guess
+                  guess))
+          guess))))
+
 (defn sqrt-guess
   [guess x]
   (if (good-enough? guess x)
     guess
     (sqrt-guess (improve-guess guess x)
                 x)))
+
+(defn sqrt-guess-incremental-precision
+  [guess x]
+  (if (good-enough-incremental-precision? guess x)
+    guess
+    (sqrt-guess-incremental-precision (improve-guess guess x)
+                                      x)))
+
 (defn sqrt
   [x]
   (sqrt-guess 1.0 x))
+
+(defn sqrt-incremental-precision
+  [x]
+  (sqrt-guess-incremental-precision 1.0 x))
